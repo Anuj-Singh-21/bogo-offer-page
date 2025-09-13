@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BOGO Offer</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="heading">
+        <span>YAY! It's BOGO</span>
+      </div>
+
+      <div class="option" data-price="10">
+        <label for="plan1">
+          <div class="option-left">
+            <input type="radio" name="plan" id="plan1" />
+            <div class="option-content">
+              <div>
+                <div class="unit-title">1 Unit</div>
+                <div class="desc">Standard Price</div>
+              </div>
+              <div class="discount">10% Off</div>
+            </div>
+          </div>
+          <div class="option-right">
+            <div class="price">$10.00 USD</div>
+            <div class="old-price">$12.00 USD</div>
+          </div>
+        </label>
+
+        <div class="variants">
+          <div class="variant-row">
+            <span class="unit-label">#1</span>
+            <select>
+              <option>Size</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+            </select>
+            <select>
+              <option>Colour</option>
+              <option>Black</option>
+              <option>White</option>
+              <option>Blue</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="option" data-price="18">
+        <label for="plan2">
+          <div class="option-left">
+            <input type="radio" name="plan" id="plan2" />
+            <div class="option-content">
+              <div>
+                <div class="unit-title">2 Unit</div>
+                <div class="desc">Best Value</div>
+              </div>
+              <div class="discount">20% Off</div>
+            </div>
+          </div>
+          <div class="option-right">
+            <div class="price">$18.00 USD</div>
+            <div class="old-price">$24.00 USD</div>
+          </div>
+        </label>
+
+        <div class="most-popular">MOST POPULAR</div>
+
+        <div class="variants">
+          <div class="variant-row">
+            <span class="unit-label">#1</span>
+            <select>
+              <option>Size</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+            </select>
+            <select>
+              <option>Colour</option>
+              <option>Black</option>
+              <option>White</option>
+              <option>Blue</option>
+            </select>
+          </div>
+          <div class="variant-row">
+            <span class="unit-label">#2</span>
+            <select>
+              <option>Size</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+            </select>
+            <select>
+              <option>Colour</option>
+              <option>Black</option>
+              <option>White</option>
+              <option>Blue</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="option" data-price="24">
+        <label for="plan3">
+          <div class="option-left">
+            <input type="radio" name="plan" id="plan3" />
+            <div class="option-content">
+              <div>
+                <div class="unit-title">3 Unit</div>
+                <div class="desc">Maximum Savings</div>
+              </div>
+              <div class="discount">30% Off</div>
+            </div>
+          </div>
+          <div class="option-right">
+            <div class="price">$24.00 USD</div>
+            <div class="old-price">$36.00 USD</div>
+          </div>
+        </label>
+
+        <div class="variants">
+          <div class="variant-row">
+            <span class="unit-label">#1</span>
+            <select>
+              <option>Size</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+            </select>
+            <select>
+              <option>Colour</option>
+              <option>Black</option>
+              <option>White</option>
+              <option>Blue</option>
+            </select>
+          </div>
+          <div class="variant-row">
+            <span class="unit-label">#2</span>
+            <select>
+              <option>Size</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+            </select>
+            <select>
+              <option>Colour</option>
+              <option>Black</option>
+              <option>White</option>
+              <option>Blue</option>
+            </select>
+          </div>
+          <div class="variant-row">
+            <span class="unit-label">#3</span>
+            <select>
+              <option>Size</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+            </select>
+            <select>
+              <option>Colour</option>
+              <option>Black</option>
+              <option>White</option>
+              <option>Blue</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <p class="free-delivery">Free Delivery</p>
+      <div class="total">Total: $0.00 USD</div>
+
+      <button>Add to Cart</button>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const options = document.querySelectorAll(".option");
+        const totalElement = document.querySelector(".total");
+
+        // Function to update total
+        function updateTotal() {
+          const selectedOption = document.querySelector(
+            'input[name="plan"]:checked'
+          );
+          if (selectedOption) {
+            const price = selectedOption.closest(".option").dataset.price;
+            totalElement.textContent = `Total: $${price}.00 USD`;
+          }
+        }
+
+        // Add click handlers to options
+        options.forEach((option) => {
+          const radio = option.querySelector('input[type="radio"]');
+          const variants = option.querySelector(".variants");
+
+          option.addEventListener("click", function (e) {
+            // Don't trigger if clicking on select elements
+            if (e.target.tagName === "SELECT") return;
+
+            // Remove active class from all options
+            options.forEach((opt) => {
+              opt.classList.remove("active");
+              opt.querySelector(".variants").classList.remove("show");
+            });
+
+            // Add active class to clicked option
+            this.classList.add("active");
+            radio.checked = true;
+            variants.classList.add("show");
+
+            updateTotal();
+          });
+        });
+
+        // Handle radio button changes
+        document.querySelectorAll('input[name="plan"]').forEach((radio) => {
+          radio.addEventListener("change", updateTotal);
+        });
+
+        // Prevent select dropdowns from closing variants
+        document.querySelectorAll("select").forEach((select) => {
+          select.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
